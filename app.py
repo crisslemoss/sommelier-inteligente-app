@@ -45,20 +45,13 @@ def index():
              form.Matiz.data,
              form.OD280_OD315.data,
              form.Proline.data]]
-       classe = make_prediction(x)
+       classe = str(make_prediction(x))       
            
-    return render_template('index.html', form=form, classe=classe)
+    return render_template('index.html', form=form, classe=str(classe))
 
 def make_prediction(x):
     filename = os.path.join('model', 'finalized_model.sav')
     model = joblib.load(filename)
     return model.predict(x)[0]
 
-if __name__ == '__main__':
-    app.run()
-
-
-
-
-
-
+app.run()
