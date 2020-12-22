@@ -54,4 +54,3 @@ def make_prediction(x):
     model = joblib.load(filename)
     return model.predict(x)[0]
 
-app.run()
