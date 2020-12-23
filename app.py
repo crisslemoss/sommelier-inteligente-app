@@ -23,9 +23,9 @@ class InputForm(FlaskForm):
     fenois_nao_flavanoides   = FloatField('Fenóis não flavanoides:', validators=[DataRequired()])
     proantocianinas          = FloatField('Proantocianinas:', validators=[DataRequired()])
     intensidade_da_cor       = FloatField('Intensidade da cor:', validators=[DataRequired()])
-    Matiz                    = FloatField('Matiz:', validators=[DataRequired()])
+    matiz                    = FloatField('Matiz:', validators=[DataRequired()])
     OD280_OD315              = FloatField('OD280/OD315:', validators=[DataRequired()])
-    Proline                  = FloatField('Proline:', validators=[DataRequired()])
+    proline                  = FloatField('Proline:', validators=[DataRequired()])
     
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -42,15 +42,14 @@ def index():
              form.fenois_nao_flavanoides.data,
              form.proantocianinas.data,
              form.intensidade_da_cor.data,
-             form.Matiz.data,
+             form.matiz.data,
              form.OD280_OD315.data,
-             form.Proline.data]]
-       classe = str(make_prediction(x))       
+             form.proline.data]]       
+       classe = str(int(make_prediction(x)))     
            
-    return render_template('index.html', form=form, classe=str(classe))
+    return render_template('index.html', form=form, classe=classe)               
 
 def make_prediction(x):
     filename = os.path.join('model', 'finalized_model.sav')
     model = joblib.load(filename)
     return model.predict(x)[0]
-
